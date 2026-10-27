@@ -2,7 +2,7 @@
     <item android:drawable="@drawable/essential_bounds" />
     <item android:gravity="bottom|right">
         <shape android:shape="rectangle">
-            <size android:width="12dp" android:height="1dp" />
+            <size android:width="36dp" android:height="1dp" />
             <solid android:color="#353D32" />
         </shape>
     </item>

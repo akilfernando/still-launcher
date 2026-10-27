@@ -58,6 +58,7 @@ public final class MainActivity extends Activity {
     private EditText search;
     private android.widget.ImageButton switcher;
     private LinearLayout root, header;
+    private android.widget.FrameLayout content;
     private boolean allApps, started, loading, appsDirty = true;
     private android.app.Dialog activeSheet;
     private GestureDetector homeGestures;
@@ -115,6 +116,7 @@ public final class MainActivity extends Activity {
         }
         root = column();
         root.setBackgroundColor(Color.BLACK);
+        root.setClipToPadding(false);
         root.setFocusableInTouchMode(true);
         root.setPadding(dp(24), dp(12), dp(24), dp(8));
         setContentView(root);
@@ -191,8 +193,9 @@ public final class MainActivity extends Activity {
         section.setPadding(0, dp(14), 0, dp(10));
         root.addView(section);
 
-        android.widget.FrameLayout content = new android.widget.FrameLayout(this);
+        content = new android.widget.FrameLayout(this);
         root.addView(content, new LinearLayout.LayoutParams(-1, 0, 1));
+        extendAppRowsToEdge();
         ListView list = new ListView(this);
         appList = list;
         appListSelector = list.getSelector();
@@ -356,6 +359,7 @@ public final class MainActivity extends Activity {
                 Insets safe = insets.getInsets(WindowInsets.Type.systemBars()
                     | WindowInsets.Type.displayCutout() | WindowInsets.Type.ime());
                 v.setPadding(safe.left + dp(24), safe.top + dp(8), safe.right + dp(24), safe.bottom + dp(8));
+                extendAppRowsToEdge();
                 return insets;
             });
             getWindow().getInsetsController().setSystemBarsAppearance(0,
@@ -780,6 +784,16 @@ public final class MainActivity extends Activity {
     }
     private int dp(int value) { return Math.round(value * getResources().getDisplayMetrics().density); }
 
+    private void extendAppRowsToEdge() {
+        if (content == null) return;
+        LinearLayout.LayoutParams layout = (LinearLayout.LayoutParams) content.getLayoutParams();
+        int margin = -root.getPaddingRight();
+        if (layout.rightMargin != margin) {
+            layout.rightMargin = margin;
+            content.setLayoutParams(layout);
+        }
+    }
+
     private void alignClockInk() {
         // Equal view bounds do not align the visible glyphs at different font sizes.
         // Run only when the system clocks change text; no extra timer or layout loop.
@@ -819,6 +833,8 @@ public final class MainActivity extends Activity {
                 view.addView(star, new LinearLayout.LayoutParams(dp(56), dp(56)));
             } else view = (LinearLayout) convertView;
             App app = getItem(position);
+            // Extend the row background to the screen edge, keeping text/stars inset.
+            view.setPadding(0, 0, root.getPaddingRight(), 0);
             if (allApps) view.setBackground(null);
             else view.setBackgroundResource(position == getCount() - 1
                 ? R.drawable.essential_bounds_last : R.drawable.essential_bounds);

@@ -1,5 +1,11 @@
 # Validation
 
+## Version 1.7.3
+
+Essential row backgrounds extend through the right content margin to the screen edge. The boundary marks extend across that margin; text and All apps stars retain their previous inset. Static drawables and native layout are used.
+
+All 35 policy checks, debug/release builds, release lint (no issues), and signature verification passed. Installed on the S24; visually verified that all boundary marks meet the physical right edge. All apps stars retain their previous right inset.
+
 ## Version 1.7.2
 
 Moved the Still settings logo to the top right, retaining its 48 dp touch target. The clock's visible leading glyph is aligned to the date's visible left edge when either clock changes text; no timer was added. Static, faint right-side marks show the top and bottom of each Essential row, with no marks in All apps. Adjacent rows share one boundary mark to keep the thickness consistent.
