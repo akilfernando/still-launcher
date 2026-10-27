@@ -1,5 +1,11 @@
 # Validation
 
+## Version 1.7.2
+
+Moved the Still settings logo to the top right, retaining its 48 dp touch target. The clock's visible leading glyph is aligned to the date's visible left edge when either clock changes text; no timer was added. Static, faint right-side marks show the top and bottom of each Essential row, with no marks in All apps. Adjacent rows share one boundary mark to keep the thickness consistent.
+
+All 35 policy checks, debug/release builds, release lint (no issues), and APK signature verification passed. Installed on the S24 and visually checked alignment, icon placement, and row marks. The relocated logo opened Settings.
+
 ## Version 1.7.1
 
 The Still logo is now the settings button, with a 48 dp touch target and an accessible label. The separate three-dot control and its unused drawable were removed. The logo artwork retains its previous size and position. The README and smoke-test selector reflect this change. All 35 policy checks, debug/release builds, release lint, and signature verification passed. Installed on the S24; the logo has a 48 dp touch target and tapping it opened the Settings sheet.

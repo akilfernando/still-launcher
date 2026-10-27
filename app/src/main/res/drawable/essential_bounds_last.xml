@@ -1,0 +1,9 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/essential_bounds" />
+    <item android:gravity="bottom|right">
+        <shape android:shape="rectangle">
+            <size android:width="12dp" android:height="1dp" />
+            <solid android:color="#353D32" />
+        </shape>
+    </item>
+</layer-list>

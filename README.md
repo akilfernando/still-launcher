@@ -12,7 +12,7 @@ Built with native Android views and no third-party runtime libraries. Designed a
 - Lightweight native sheets for settings and app actions.
 - Home requests the lowest refresh rate advertised at the current resolution. All apps uses Android's adaptive policy for smooth scrolling.
 
-Long-press an Essential to move it up or down. Long-press an app in All apps to add/remove it or open Android's app information page. Tap the Still logo at the top left for settings and to choose Still as the default launcher.
+Long-press an Essential to move it up or down. Subtle marks at the right of each Essential show its touch-row boundaries. Long-press an app in All apps to add/remove it or open Android's app information page. Tap the Still logo at the top right for settings and to choose Still as the default launcher.
 
 ## Battery and privacy
 

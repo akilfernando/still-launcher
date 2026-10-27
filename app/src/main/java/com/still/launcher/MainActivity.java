@@ -122,11 +122,12 @@ public final class MainActivity extends Activity {
         configureGestures();
 
         LinearLayout top = row();
+        top.setGravity(Gravity.END | Gravity.CENTER_VERTICAL);
         android.widget.ImageButton brand = new android.widget.ImageButton(this);
         brand.setImageResource(R.drawable.ic_still_mark);
         brand.setContentDescription("Still settings");
         brand.setBackgroundColor(Color.BLACK);
-        brand.setPadding(0, dp(10), dp(20), dp(10));
+        brand.setPadding(dp(20), dp(10), 0, dp(10));
         brand.setOnClickListener(v -> showSettings());
         top.addView(brand, new LinearLayout.LayoutParams(dp(48), dp(48)));
         root.addView(top);
@@ -146,6 +147,14 @@ public final class MainActivity extends Activity {
         date.setTextSize(16);
         date.setTextColor(MUTED);
         header.addView(date);
+        TextWatcher clockAlignment = new TextWatcher() {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void afterTextChanged(Editable text) { alignClockInk(); }
+        };
+        clock.addTextChangedListener(clockAlignment);
+        date.addTextChangedListener(clockAlignment);
+        alignClockInk();
         if (compact) date.setVisibility(View.GONE);
         battery = label("Battery", 14, ACCENT);
         battery.setPadding(0, dp(compact ? 0 : 14), 0, dp(compact ? 0 : 22));
@@ -771,6 +780,17 @@ public final class MainActivity extends Activity {
     }
     private int dp(int value) { return Math.round(value * getResources().getDisplayMetrics().density); }
 
+    private void alignClockInk() {
+        // Equal view bounds do not align the visible glyphs at different font sizes.
+        // Run only when the system clocks change text; no extra timer or layout loop.
+        if (clock.length() == 0 || date.length() == 0) return;
+        android.graphics.Rect ink = new android.graphics.Rect();
+        clock.getPaint().getTextBounds(clock.getText().toString(), 0, 1, ink);
+        int clockInset = ink.left;
+        date.getPaint().getTextBounds(date.getText().toString(), 0, 1, ink);
+        clock.setTranslationX(ink.left - clockInset);
+    }
+
     private static final class App {
         final String name, searchName, componentKey;
         final ComponentName component;
@@ -799,6 +819,9 @@ public final class MainActivity extends Activity {
                 view.addView(star, new LinearLayout.LayoutParams(dp(56), dp(56)));
             } else view = (LinearLayout) convertView;
             App app = getItem(position);
+            if (allApps) view.setBackground(null);
+            else view.setBackgroundResource(position == getCount() - 1
+                ? R.drawable.essential_bounds_last : R.drawable.essential_bounds);
             // Home rows use View's click dispatch instead of AbsListView's delayed
             // pressed-state click. Launch on release; keep cancellation and long press.
             view.setOnClickListener(allApps ? null : v -> launch(app));
