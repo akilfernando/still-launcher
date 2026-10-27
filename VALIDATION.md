@@ -1,5 +1,11 @@
 # Validation
 
+## Version 1.7.4
+
+All apps rows extend to both screen edges while labels and stars keep their content inset. A shared native state-list background provides a muted green full-width bar for press/selection feedback. Star buttons have transparent backgrounds, and their pressed state is included in the row's state. Home retains its unhighlighted Essential rows and right-edge boundary marks.
+
+All 35 policy checks, debug/release builds, release lint (no issues), and signature verification passed. On an API 35 emulator, pressed-row and pressed-star screenshots showed an uninterrupted edge-to-edge bar. Star toggling stayed in the drawer and app-name tapping launched the app. The phone was unavailable, so this version has not been installed or verified on the physical S24.
+
 ## Version 1.7.3
 
 Essential row backgrounds extend through the right content margin to the screen edge. The boundary marks extend across that margin; text and All apps stars retain their previous inset. Static drawables and native layout are used.

@@ -63,7 +63,6 @@ public final class MainActivity extends Activity {
     private android.app.Dialog activeSheet;
     private GestureDetector homeGestures;
     private ListView appList;
-    private android.graphics.drawable.Drawable appListSelector;
     private boolean consumingGesture, multiplePointers, blankTap;
     private Runnable pendingGesture;
     private boolean resumed, interacting;
@@ -198,7 +197,6 @@ public final class MainActivity extends Activity {
         extendAppRowsToEdge();
         ListView list = new ListView(this);
         appList = list;
-        appListSelector = list.getSelector();
         list.setSelector(new android.graphics.drawable.ColorDrawable(Color.TRANSPARENT));
         list.setDivider(null);
         list.setCacheColorHint(Color.BLACK);
@@ -480,8 +478,7 @@ public final class MainActivity extends Activity {
 
     private void setAllApps(boolean show) {
         allApps = show;
-        appList.setSelector(show ? appListSelector
-            : new android.graphics.drawable.ColorDrawable(Color.TRANSPARENT));
+        extendAppRowsToEdge();
         applyRefreshPolicy();
         header.setVisibility(show ? View.GONE : View.VISIBLE);
         search.setVisibility(show ? View.VISIBLE : View.GONE);
@@ -788,8 +785,10 @@ public final class MainActivity extends Activity {
         if (content == null) return;
         LinearLayout.LayoutParams layout = (LinearLayout.LayoutParams) content.getLayoutParams();
         int margin = -root.getPaddingRight();
-        if (layout.rightMargin != margin) {
+        int leftMargin = allApps ? -root.getPaddingLeft() : 0;
+        if (layout.rightMargin != margin || layout.leftMargin != leftMargin) {
             layout.rightMargin = margin;
+            layout.leftMargin = leftMargin;
             content.setLayoutParams(layout);
         }
     }
@@ -825,19 +824,21 @@ public final class MainActivity extends Activity {
             LinearLayout view;
             if (convertView == null) {
                 view = row(); view.setMinimumHeight(dp(64));
+                view.setAddStatesFromChildren(true);
                 TextView name = label("", 23, INK);
                 name.setPadding(0, dp(12), dp(8), dp(12));
                 view.addView(name, new LinearLayout.LayoutParams(0, -2, 1));
                 Button star = button("☆");
+                star.setBackgroundColor(Color.TRANSPARENT);
                 star.setTextSize(24); star.setTextColor(ACCENT); star.setFocusable(false);
                 view.addView(star, new LinearLayout.LayoutParams(dp(56), dp(56)));
             } else view = (LinearLayout) convertView;
             App app = getItem(position);
-            // Extend the row background to the screen edge, keeping text/stars inset.
-            view.setPadding(0, 0, root.getPaddingRight(), 0);
-            if (allApps) view.setBackground(null);
+            if (allApps) view.setBackgroundResource(R.drawable.app_row_selector);
             else view.setBackgroundResource(position == getCount() - 1
                 ? R.drawable.essential_bounds_last : R.drawable.essential_bounds);
+            // Full-width feedback, with the text and star kept on the content grid.
+            view.setPadding(allApps ? root.getPaddingLeft() : 0, 0, root.getPaddingRight(), 0);
             // Home rows use View's click dispatch instead of AbsListView's delayed
             // pressed-state click. Launch on release; keep cancellation and long press.
             view.setOnClickListener(allApps ? null : v -> launch(app));
