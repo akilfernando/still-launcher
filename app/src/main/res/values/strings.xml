@@ -1,0 +1,5 @@
+<resources>
+    <string name="gesture_service_name">Still Gestures</string>
+    <string name="gesture_service_description">Allows your Home gestures to open notifications and lock the screen. Still does not read screen content, monitor accessibility events, or send data. Turn this service off to disable these two gestures.</string>
+    <string name="load_error">Could not load apps. Return Home to retry.</string>
+</resources>

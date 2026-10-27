@@ -1,0 +1,24 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'com.still.launcher'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'com.still.launcher'
+        minSdk 28
+        targetSdk 35
+        versionCode 14
+        versionName '1.7'
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    lint { abortOnError true }
+}
