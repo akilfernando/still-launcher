@@ -12,7 +12,7 @@ Built with native Android views and no third-party runtime libraries. Designed a
 - Lightweight native sheets for settings and app actions.
 - Home requests the lowest refresh rate advertised at the current resolution. All apps uses Android's adaptive policy for smooth scrolling.
 
-Long-press an Essential to move it up or down. Long-press an app in All apps to add/remove it or open Android's app information page. Use the three-dot menu to choose Still as the default launcher.
+Long-press an Essential to move it up or down. Long-press an app in All apps to add/remove it or open Android's app information page. Tap the Still logo at the top left for settings and to choose Still as the default launcher.
 
 ## Battery and privacy
 
@@ -26,7 +26,7 @@ The clock shows minutes rather than seconds. Home's refresh-rate preference is r
 
 Swipe up works without special access. Notifications and locking require the optional **Still Gestures** accessibility service:
 
-1. Open **⋮ → Home gestures → Accessibility settings**.
+1. Tap the **Still logo → Home gestures → Accessibility settings**.
 2. Open **Installed apps → Still Gestures** and enable it.
 
 The service only performs notification/lock global actions in response to Home gestures. It has no accessibility-event subscriptions, screen-content retrieval, gesture injection, network access, or polling. Android keeps it bound while enabled, so it has some overhead; its battery impact has not been measured. Disable it in Android Accessibility settings to turn those two gestures off. No device-admin permission is requested.

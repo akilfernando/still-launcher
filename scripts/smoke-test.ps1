@@ -17,7 +17,7 @@ function ReadUi {
 }
 function FindNode([xml]$Ui, [string]$Text, [string]$Class = '') {
     $description = switch ($Text) {
-        'STILL' { 'Still Launcher' }
+        'STILL' { 'Still settings' }
         'All apps  →' { 'All apps' }
         '←  Home' { 'Home' }
         'Search apps' { 'Search installed apps' }

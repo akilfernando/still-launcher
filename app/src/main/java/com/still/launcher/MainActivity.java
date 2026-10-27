@@ -122,18 +122,13 @@ public final class MainActivity extends Activity {
         configureGestures();
 
         LinearLayout top = row();
-        android.widget.ImageView brand = new android.widget.ImageView(this);
+        android.widget.ImageButton brand = new android.widget.ImageButton(this);
         brand.setImageResource(R.drawable.ic_still_mark);
-        brand.setContentDescription("Still Launcher");
-        top.addView(brand, new LinearLayout.LayoutParams(dp(28), dp(48)));
-        top.addView(new View(this), new LinearLayout.LayoutParams(0, 1, 1));
-        android.widget.ImageButton settings = new android.widget.ImageButton(this);
-        settings.setImageResource(R.drawable.ic_more);
-        settings.setContentDescription("Still settings");
-        settings.setBackgroundColor(Color.BLACK);
-        settings.setPadding(dp(12), dp(12), dp(12), dp(12));
-        settings.setOnClickListener(v -> showSettings());
-        top.addView(settings, new LinearLayout.LayoutParams(dp(48), dp(48)));
+        brand.setContentDescription("Still settings");
+        brand.setBackgroundColor(Color.BLACK);
+        brand.setPadding(0, dp(10), dp(20), dp(10));
+        brand.setOnClickListener(v -> showSettings());
+        top.addView(brand, new LinearLayout.LayoutParams(dp(48), dp(48)));
         root.addView(top);
 
         header = column();

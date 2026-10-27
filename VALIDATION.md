@@ -1,5 +1,9 @@
 # Validation
 
+## Version 1.7.1
+
+The Still logo is now the settings button, with a 48 dp touch target and an accessible label. The separate three-dot control and its unused drawable were removed. The logo artwork retains its previous size and position. The README and smoke-test selector reflect this change. All 35 policy checks, debug/release builds, release lint, and signature verification passed. Installed on the S24; the logo has a 48 dp touch target and tapping it opened the Settings sheet.
+
 ## Version 1.7 — 27 October 2026
 
 - 27 Essentials selection/order/uninstall checks and 8 swipe-classification checks passed.
